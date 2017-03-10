@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="green_pb">#68a733</color>
+    <color name="grey_light_pb">#f3f3f3</color>
+    <color name="grey_pb">#7d8690</color>
+    <color name="dark_pb">#556270</color>
+    <color name="white_pb">#ffffff</color>
+    <color name="black_pb">#333333</color>
+    <color name="convertertheme_color">#669900</color>
+
+
+
+
+</resources>

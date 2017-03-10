@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cur_array">
+        <item>Ukrainian hryvnia(UAH)</item>
+        <item>Euro(EUR)</item>
+        <item>US Dollar(USD)</item>
+        <item>Russian ruble(RUR)</item>
+    </string-array>
+
+    <integer-array name="img_array">
+        <item>@drawable/ua</item>
+        <item>@drawable/eu</item>
+        <item>@drawable/us</item>
+        <item>@drawable/ru</item>
+    </integer-array>
+
+
+</resources>

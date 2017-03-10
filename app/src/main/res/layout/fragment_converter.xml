@@ -1,0 +1,165 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_converter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_light_pb"
+    android:orientation="vertical"
+    app:layout_collapseParallaxMultiplier="1.0"
+    tools:context="converter.com.converter.activities.FragmentConverter">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_curs_PB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/left_margin"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="Курс Приватбанка"
+            android:textSize="@dimen/text_small" />
+
+        <RadioButton
+            android:id="@+id/rb_curs_NBU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Курс НБУ"
+            android:textSize="@dimen/text_small"
+            android:layout_marginRight="30dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="0.8"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/txt_cur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Валюта из:" />
+
+            <Spinner
+               android:background="@drawable/spinner_selector"
+                android:id="@+id/sp_cur_from"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:popupBackground="@color/white_pb"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Валюта в"
+                android:layout_marginLeft="30dp" />
+
+            <Spinner
+                android:background="@drawable/spinner_selector"
+                android:id="@+id/sp_cur_to"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:background="@drawable/edittext_round_corners_from"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="100"
+                android:ems="10"
+                android:id="@+id/edt_from"
+                android:layout_marginLeft="30dp"
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_weight="0.11"
+                android:layout_gravity="center"
+                android:id="@+id/button"
+                android:background="@drawable/stripes_selector"
+                android:layout_height="wrap_content"
+                android:minHeight="26dp"
+                tools:minWidth="40dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:background="@drawable/edittext_round_corners_to"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/edt_to"
+                android:layout_marginRight="30dp"
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:textSize="14sp"
+                android:textColor="@color/green_pb" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </FrameLayout>
+
+</LinearLayout>

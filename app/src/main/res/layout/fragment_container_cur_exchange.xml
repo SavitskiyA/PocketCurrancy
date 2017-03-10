@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_cur_exchange"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_light_pb"
+    tools:context="converter.com.converter.activities.FragmentCurExchangeContainer"
+    app:layout_collapseParallaxMultiplier="1.0">
+
+    <LinearLayout
+        android:layout_weight="5"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RadioButton
+            android:text="Приватбанк"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_PB"
+            android:onClick="onRadioButtonClicked"
+            android:layout_weight="1"
+            android:checked="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/left_margin" />
+
+        <RadioButton
+            android:id="@+id/rb_NBU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:onClick="onRadioButtonClicked"
+            android:text="НБУ" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="converter.com.converter.activities.FragmentCurExchangePB"
+        />
+
+</LinearLayout>

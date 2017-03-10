@@ -1,0 +1,180 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_cur_exchange"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_light_pb"
+    tools:context="converter.com.converter.activities.FragmentCurExchangeNBU"
+    app:layout_collapseParallaxMultiplier="1.0">
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RadioButton
+            android:text="В отделениях"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_branch"
+            android:layout_weight="1"
+            android:checked="true"
+            android:layout_gravity="center"
+            android:enabled="false"
+            android:layout_marginLeft="@dimen/left_margin"
+            android:gravity="center_vertical" />
+
+        <RadioButton
+            android:id="@+id/rb_cards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="По картам и вкладам" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Валюта:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_currancy"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp" />
+
+        <TextView
+            android:text="покупка"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_buy"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:enabled="false"/>
+
+        <TextView
+            android:text="продажа"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_sale"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="EUR/UAH:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_EUR_UAH"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp" />
+
+        <TextView
+            android:text="-"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_EUR_UAH_buy"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:enabled="false"/>
+        <TextView
+            android:text="-"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_EUR_UAH_sale"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="USD/UAH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_USD_UAH"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp" />
+        <TextView
+            android:text="-"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_USD_UAH_buy"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:enabled="false"/>
+        <TextView
+            android:text="-"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_USD_UAH_sale"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:text="RUB/UAH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_RUB_UAH"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp" />
+
+        <TextView
+            android:text="-"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_RUB_UAH_buy"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:enabled="false"/>
+
+        <TextView
+            android:text="-"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_RUB_UAH_sale"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+</LinearLayout>
