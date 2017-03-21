@@ -74,37 +74,69 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="1"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
         <TextView
-            android:text="EUR/UAH:"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/txt_EUR_UAH"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="30dp" />
+            android:layout_marginLeft="30dp"
+            android:layout_weight="1"
+            android:text="EUR/UAH:" />
 
         <TextView
-            android:text="-"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/txt_EUR_UAH_buy"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:enabled="false"/>
-        <TextView
-            android:text="-"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_EUR_UAH_sale"
+            android:layout_gravity="center"
             android:layout_weight="1"
+            android:enabled="false"
             android:gravity="center"
-            android:layout_gravity="center" />
+            android:text="-" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/txt_EUR_UAH_sale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="-" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/img_EUR_sale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:background="@drawable/triangleredselector"
+                    android:visibility="visible" />
+            </FrameLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>
@@ -132,14 +164,46 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:enabled="false"/>
-        <TextView
-            android:text="-"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_USD_UAH_sale"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:layout_gravity="center"/>
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/txt_USD_UAH_sale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="-" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/img_USD_sale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:background="@drawable/triangledownred"
+                    android:visibility="visible" />
+            </FrameLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -167,14 +231,46 @@
             android:layout_gravity="center"
             android:enabled="false"/>
 
-        <TextView
-            android:text="-"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_RUB_UAH_sale"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:layout_gravity="center"/>
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/txt_RUB_UAH_sale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="-" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/img_RUB_sale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:background="@drawable/triangleredselector"
+                    android:visibility="visible" />
+            </FrameLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

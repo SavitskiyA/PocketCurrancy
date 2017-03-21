@@ -62,11 +62,8 @@ public String getCurFromView(int position){
         View v = inflater.inflate(R.layout.spinner_model, null);
         img_cur = (ImageView) v.findViewById(R.id.img_cur);
         txt_cur = (TextView) v.findViewById(R.id.txt_cur);
-
         txt_cur.setText(spinnarArray.get(position).getCurrancy());
         img_cur.setBackgroundResource(spinnarArray.get(position).getImage());
-//        txt_cur.setText(cur_array.get(position));
-//        img_cur.setBackgroundResource(img_array.getResourceId(position, 0));
         return v;
     }
 }

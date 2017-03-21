@@ -12,7 +12,10 @@ import android.provider.Settings;
 import java.io.StringBufferInputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import static android.R.attr.type;
 
 /**
  * Created by Andrey on 09.02.2017.
@@ -22,6 +25,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String DATABASENAME = "currancies.db";
 
     public static final class Strings {
+        public static final String PB = "PB";
+        public static final String NBU = "NBU";
         public static final String BUY = "buy";
         public static final String SALE = "sale";
         public static final String BRANCH = "branch";
@@ -71,10 +76,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return dateFormat.format(date).toString();
     }
 
+    private static Date yesterday(int days) {
+        final Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -days);
+        return cal.getTime();
+    }
+
+    public static String getPrevDate(int days) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        return dateFormat.format(yesterday(days));
+    }
+
 
     public DataBaseHelper(Context context) {
         super(context, DATABASENAME, null, 1);
         db = this.getWritableDatabase();
+
 
     }
 
@@ -100,16 +117,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-//    public void insertDataIntoCatalogue() {
-//        db = this.getWritableDatabase();
-//        db.execSQL("insert into catalogue values(null, 'EUR')");
-//        db.execSQL("insert into catalogue values(null, 'USD')");
-//        db.execSQL("insert into catalogue values(null, 'RUR')");
-//    }
-
 
     public void insertIntoPB(String date, String cur_name, String buy, String sale, String type) {
         db = this.getWritableDatabase();
+
         db.execSQL("insert into pb values(null, '" + date + "', (select cur_id from catalogue where cur_name='" + cur_name + "'), '" + buy + "', '" + sale + "', '" + type + "')");
     }
 
@@ -123,6 +134,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public Cursor getValueFromPB(String date, String currancy, String type) {
         db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select buy, sale from pb where (cur_id = (select cur_id from catalogue where cur_name = '" + currancy + "')) and date = '" + date + "' and type = '" + type + "'", null);
+        return res;
+    }
+
+    public Cursor getValueFromPB(String date, String currancy, String what, String type) {
+        db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select "+ what +" from pb where (cur_id = (select cur_id from catalogue where cur_name = '" + currancy + "')) and date = '" + date + "' and type = '" + type + "'", null);
         return res;
     }
 
@@ -166,7 +183,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select " + type + " from pb where (cur_id = (select cur_id from catalogue where cur_name = '" + cur_name + "')) order by id desc limit 1", null);
         if (res.getCount() == 0) {
-
             return null;
         } else {
             StringBuffer buffer = new StringBuffer();
@@ -192,6 +208,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return buffer.toString();
         }
     }
+
+    public Cursor getDataFromPB(String currancy, String what, String type, String rowCounts) {
+        db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select " + what + ", date from pb where (cur_id = (select cur_id from catalogue where cur_name = '" + currancy + "')) and type = '" + type + "' order by date desc limit " + rowCounts, null);
+        return res;
+    }
+
+
+    public Cursor getDataFromNBU(String currancy, String rowCounts) {
+        db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select value, date from nbu where (cur_id = (select cur_id from catalogue where cur_name = '" + currancy + "')) order by date desc limit " + rowCounts, null);
+        return res;
+    }
+
+
+
+
+
 
 }
 

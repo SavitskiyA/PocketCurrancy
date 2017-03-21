@@ -78,8 +78,9 @@ public class FragmentConverter extends Fragment implements AdapterView.OnItemSel
     public void setDataToModel() {
         TypedArray img_array = getResources().obtainTypedArray(R.array.img_array);
         List<String> currancies = Arrays.asList(getResources().getStringArray(R.array.cur_array));
+        List<String> curAbr = Arrays.asList(getResources().getStringArray(R.array.curAbr_array));
         for (int i = 0; i < currancies.size(); i++) {
-            arrayList.add(new SpinnerModel(currancies.get(i), img_array.getResourceId(i, 0)));
+            arrayList.add(new SpinnerModel(currancies.get(i), img_array.getResourceId(i, 0), curAbr.get(i)));
         }
     }
 
@@ -87,9 +88,9 @@ public class FragmentConverter extends Fragment implements AdapterView.OnItemSel
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getId() == R.id.sp_cur_from)
-            selected_cur_from = arrayList.get(position).getCurrancy();
+            selected_cur_from = arrayList.get(position).getCurAbr();
         if (parent.getId() == R.id.sp_cur_to)
-            selected_cur_to = arrayList.get(position).getCurrancy();
+            selected_cur_to = arrayList.get(position).getCurAbr();
     }
 
     @Override
@@ -197,7 +198,8 @@ public class FragmentConverter extends Fragment implements AdapterView.OnItemSel
                         if (res != null) edt_to.setText(res);
                         else showCustomDialog();
                     }
-                    if (!selected_sp_from.equals("UAH") && !selected_sp_to.equals("UAH")) {
+                    boolean b = (!selected_sp_from.equals("UAH")) && (!selected_sp_to.equals("UAH"));
+                    if (b) {
                         String res = getValFromValPB(edt_from, selected_sp_from, selected_sp_to);
                         if (res != null) edt_to.setText(res);
                         else showCustomDialog();
@@ -211,18 +213,18 @@ public class FragmentConverter extends Fragment implements AdapterView.OnItemSel
 
                     if (selected_sp_from.equals("UAH") && !selected_sp_to.equals("UAH")) {
                         String res = getCurFromUAHNBU(edt_from, selected_sp_to);
-                        if (res!=null) edt_to.setText(res);
+                        if (res != null) edt_to.setText(res);
                         else showCustomDialog();
                     }
 
                     if (!selected_sp_from.equals("UAH") && selected_sp_to.equals("UAH")) {
-                        String res=getUAHFromCurNBU(edt_from, selected_sp_from);
-                        if(res!=null)edt_to.setText(res);
+                        String res = getUAHFromCurNBU(edt_from, selected_sp_from);
+                        if (res != null) edt_to.setText(res);
                         else showCustomDialog();
                     }
                     if (!selected_sp_from.equals("UAH") && !selected_sp_to.equals("UAH")) {
-                        String res=getValFromValNBU(edt_from, selected_sp_from, selected_sp_to);
-                        if(res!=null) edt_to.setText(res);
+                        String res = getValFromValNBU(edt_from, selected_sp_from, selected_sp_to);
+                        if (res != null) edt_to.setText(res);
                         else showCustomDialog();
                     }
                     break;

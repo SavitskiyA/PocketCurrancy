@@ -2,8 +2,10 @@ package converter.com.converter.activities;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
@@ -30,16 +32,13 @@ public class FragmentCurExchangeContainer extends Fragment {
         View v = inflater.inflate(R.layout.fragment_container_cur_exchange, container, false);
         rb_pb = (RadioButton) v.findViewById(R.id.rb_PB);
         rb_nbu = (RadioButton) v.findViewById(R.id.rb_NBU);
-
         radioSwitcher();
-
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         rb_nbu.setChecked(false);
         FragmentCurExchangePB f1 = new FragmentCurExchangePB();
         ft.replace(R.id.fragment_container, f1);
         ft.commit();
-
         return v;
     }
 

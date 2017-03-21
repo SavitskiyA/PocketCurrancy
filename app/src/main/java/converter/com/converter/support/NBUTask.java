@@ -39,9 +39,9 @@ public class NBUTask extends AsyncTask<String, String, String> {
         this.context = context;
         this.mdb = mdb;
         this.fragmentManager = fragmentManager;
-        txt_EUR_UAH = (TextView) v.findViewById(R.id.txt_EUR_UAH);
-        txt_USD_UAH = (TextView) v.findViewById(R.id.txt_USD_UAH);
-        txt_RUB_UAH = (TextView) v.findViewById(R.id.txt_RUB_UAH);
+        txt_EUR_UAH = (TextView) v.findViewById(R.id.txt_EUR_UAH_sale);
+        txt_USD_UAH = (TextView) v.findViewById(R.id.txt_USD_UAH_sale);
+        txt_RUB_UAH = (TextView) v.findViewById(R.id.txt_RUB_UAH_sale);
     }
 
     @Override

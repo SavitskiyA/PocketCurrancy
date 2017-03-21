@@ -14,5 +14,12 @@
         <item>@drawable/ru</item>
     </integer-array>
 
+    <string-array name="curAbr_array">
+        <item>UAH</item>
+        <item>EUR</item>
+        <item>USD</item>
+        <item>RUR</item>
+    </string-array>
+
 
 </resources>

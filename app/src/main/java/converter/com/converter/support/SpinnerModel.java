@@ -22,10 +22,18 @@ import converter.com.converter.R;
 public class SpinnerModel {
     private int image;
     private String currancy;
+    private String curAbr;
 
-    public SpinnerModel(String currancy, int image) {
+    public String getCurAbr() {
+        return curAbr;
+    }
+
+
+
+    public SpinnerModel(String currancy, int image, String curAbr) {
         this.image = image;
         this.currancy = currancy;
+        this.curAbr=curAbr;
     }
 
     public int getImage() {
@@ -42,6 +50,10 @@ public class SpinnerModel {
 
     public void setCurrancy(String currancy) {
         this.currancy = currancy;
+    }
+
+    public void setCurAbr(String curAbr) {
+        this.curAbr = curAbr;
     }
 }
 
