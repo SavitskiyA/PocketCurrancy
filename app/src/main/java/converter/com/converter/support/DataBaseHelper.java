@@ -117,10 +117,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-
     public void insertIntoPB(String date, String cur_name, String buy, String sale, String type) {
         db = this.getWritableDatabase();
-
         db.execSQL("insert into pb values(null, '" + date + "', (select cur_id from catalogue where cur_name='" + cur_name + "'), '" + buy + "', '" + sale + "', '" + type + "')");
     }
 
@@ -130,11 +128,28 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("insert into nbu values(null, '" + date + "', (select cur_id from catalogue where cur_name='" + cur_name + "'), '" + value + "')");
     }
 
-
-    public Cursor getValueFromPB(String date, String currancy, String type) {
+    /**
+     * Method provides query from tables
+     * @param bank
+     * @param date
+     * @param currancy
+     * @param type
+     * @param source
+     * @return Cursor object
+     */
+    public Cursor getValue(String bank, String date, String currancy, String type, String source) {
         db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select buy, sale from pb where (cur_id = (select cur_id from catalogue where cur_name = '" + currancy + "')) and date = '" + date + "' and type = '" + type + "'", null);
-        return res;
+        String query = "";
+        switch (bank){
+            case Strings.PB:
+                query="select "+type+" from pb where (cur_id = (select cur_id from catalogue where cur_name = '" + currancy + "')) and date = '" + date + "' and type = '" + source + "'";
+                break;
+            case Strings.NBU:
+                query="select value from nbu where (cur_id = (select cur_id from catalogue where cur_name = '" + currancy + "')) and date = '" + date + "'";
+                break;
+        }
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor;
     }
 
     public Cursor getValueFromPB(String date, String currancy, String what, String type) {
@@ -165,9 +180,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getlastCursFromPB(String lastDate, String type) {
+    public Cursor getlastCursFromPB(String lastDate, String source) {
         db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from pb where date='" + lastDate + "' and type='" + type + "'", null);
+        Cursor res = db.rawQuery("select * from pb where date='" + lastDate + "' and type='" + source + "'", null);
         return res;
     }
 
@@ -221,6 +236,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select value, date from nbu where (cur_id = (select cur_id from catalogue where cur_name = '" + currancy + "')) order by date desc limit " + rowCounts, null);
         return res;
     }
+
+    public Cursor getRowCount(String table){
+        if(db==null)db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select count (distinct date) from "+table, null);
+        return res;
+    }
+
 
 
 

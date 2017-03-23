@@ -66,11 +66,11 @@ public class FragmentCurranciesChart extends DialogFragment {
         Cursor cursorRUR = null;
 
         if (bank.equals(DataBaseHelper.Strings.PB)) {
-            String what = bundle.getString("WHAT");
-            String type = bundle.getString("TYPE");
-            cursorEUR = db.getDataFromPB(DataBaseHelper.Strings.EUR, what, type, "7");
-            cursorUSD = db.getDataFromPB(DataBaseHelper.Strings.USD, what, type, "7");
-            cursorRUR = db.getDataFromPB(DataBaseHelper.Strings.RUR, what, type, "7");
+            String what = bundle.getString("TYPE");
+            String type = bundle.getString("SOURCE");
+            cursorEUR = db.getDataFromPB(DataBaseHelper.Strings.EUR, what, type, "5");
+            cursorUSD = db.getDataFromPB(DataBaseHelper.Strings.USD, what, type, "5");
+            cursorRUR = db.getDataFromPB(DataBaseHelper.Strings.RUR, what, type, "5");
 
         }
         if (bank.equals(DataBaseHelper.Strings.NBU)) {

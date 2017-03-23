@@ -1,14 +1,11 @@
 package converter.com.converter.activities;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +15,9 @@ import converter.com.converter.R;
 
 
 public class FragmentCurExchangeContainer extends Fragment {
-    RadioButton rb_pb, rb_nbu;
+
+
+    private RadioButton rb_pb, rb_nbu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class FragmentCurExchangeContainer extends Fragment {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         rb_nbu.setChecked(false);
-        FragmentCurExchangePB f1 = new FragmentCurExchangePB();
+        FragmentPB f1 = new FragmentPB();
         ft.replace(R.id.fragment_container, f1);
         ft.commit();
         return v;
@@ -49,7 +48,7 @@ public class FragmentCurExchangeContainer extends Fragment {
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 rb_nbu.setChecked(false);
-                FragmentCurExchangePB f1 = new FragmentCurExchangePB();
+                FragmentPB f1 = new FragmentPB();
                 ft.replace(R.id.fragment_container, f1);
                 ft.commit();
             }
@@ -61,7 +60,7 @@ public class FragmentCurExchangeContainer extends Fragment {
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 rb_pb.setChecked(false);
-                FragmentCurExchangeNBU f2 = new FragmentCurExchangeNBU();
+                FragmentNBU f2 = new FragmentNBU();
                 ft.replace(R.id.fragment_container, f2);
                 ft.commit();
             }

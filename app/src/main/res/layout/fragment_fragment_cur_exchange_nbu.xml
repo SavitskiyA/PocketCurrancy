@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_light_pb"
-    tools:context="converter.com.converter.activities.FragmentCurExchangeNBU"
+    tools:context="converter.com.converter.activities.FragmentNBU"
     app:layout_collapseParallaxMultiplier="1.0">
 
     <LinearLayout

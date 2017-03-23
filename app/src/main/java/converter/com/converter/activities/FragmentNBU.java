@@ -18,7 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import converter.com.converter.R;
+import converter.com.converter.support.CustomDialog;
 import converter.com.converter.support.DataBaseHelper;
 import converter.com.converter.support.NBUTask;
 import converter.com.converter.support.PBTask;
@@ -26,22 +31,19 @@ import converter.com.converter.support.PBTask;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentCurExchangeNBU extends Fragment {
+public class FragmentNBU extends BaseFragment {
 
     private DataBaseHelper dbh;
     private TextView txt_EUR_UAH, txt_USD_UAH, txt_RUB_UAH;
-    private View v;
     private FragmentManager fm;
     private BroadcastReceiver receiver;
     private IntentFilter intentFilter;
     private AsyncTask<String, String, String> nbuTask;
     private ImageView img_EUR_sale, img_USD_sale, img_RUR_sale;
     private Drawable triangleGreenSelector, triangleRedSelector, equallySelector;
-    private double diff_EUR, diff_USD, diff_RUR;
 
 
-
-    public FragmentCurExchangeNBU() {
+    public FragmentNBU() {
     }
 
     @Override
@@ -51,102 +53,29 @@ public class FragmentCurExchangeNBU extends Fragment {
         fm = getFragmentManager();
         intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-
         triangleGreenSelector = getContext().getResources().getDrawable(R.drawable.trianglegreenselector);
         triangleRedSelector = getContext().getResources().getDrawable(R.drawable.triangleredselector);
         equallySelector = getContext().getResources().getDrawable(R.drawable.equallyselector);
 
-        calculateDiff();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_fragment_cur_exchange_nbu, container, false);
+        View v = inflater.inflate(R.layout.fragment_fragment_cur_exchange_nbu, container, false);
         txt_EUR_UAH = (TextView) v.findViewById(R.id.txt_EUR_UAH_sale);
         txt_USD_UAH = (TextView) v.findViewById(R.id.txt_USD_UAH_sale);
         txt_RUB_UAH = (TextView) v.findViewById(R.id.txt_RUB_UAH_sale);
         img_EUR_sale = (ImageView) v.findViewById(R.id.img_EUR_sale);
         img_USD_sale = (ImageView) v.findViewById(R.id.img_USD_sale);
         img_RUR_sale = (ImageView) v.findViewById(R.id.img_RUB_sale);
-
-        setStatIconintoView(img_EUR_sale,diff_EUR);
-        setStatIconintoView(img_USD_sale,diff_USD);
-        setStatIconintoView(img_RUR_sale,diff_RUR);
-
         return v;
     }
 
-    private void calculateDiff() {
-        diff_EUR = getDiff(DataBaseHelper.Strings.EUR);
-        diff_USD = getDiff(DataBaseHelper.Strings.USD);
-        diff_RUR = getDiff(DataBaseHelper.Strings.EUR);
-    }
-
-    private double getDiff(String cur) {
-        String curValue = null;
-        String prevValue = null;
-        Cursor cursorCur = dbh.getValueFromNBU(DataBaseHelper.getCurrentDate(), cur);
-        if (cursorCur.getCount() != 0) {
-            while (cursorCur.moveToNext()) {
-                curValue = cursorCur.getString(0);
-            }
-        }
-        boolean go = true;
-        int i = 1;
-        while (go) {
-            Cursor cursorPrev = dbh.getValueFromNBU(DataBaseHelper.getPrevDate(i), cur);
-            if (cursorPrev.getCount() != 0) {
-                while (cursorPrev.moveToNext()) {
-                    prevValue = cursorPrev.getString(0);
-                    go = false;
-                }
-            } else {
-                i++;
-            }
-        }
-
-        return Double.parseDouble(curValue) - Double.parseDouble(prevValue);
-
-    }
-
-    public void setStatIconintoView(View v, double diff) {
-        if (diff > 0) {
-            v.setBackgroundDrawable(triangleGreenSelector);
-        } else if (diff < 0) {
-            v.setBackgroundDrawable(triangleRedSelector);
-        } else {
-            v.setBackgroundDrawable(equallySelector);
-        }
-    }
-
-
-    public void fillViews() {
-        Cursor cursor = dbh.getlastCursFromNBU(DataBaseHelper.getCurrentDate());
-        if (cursor.getCount() == 0) {
-            startTask();
-        } else {
-            StringBuffer buffer = new StringBuffer();
-            while (cursor.moveToNext()) {
-                String cur = cursor.getString(2);
-                switch (cur) {
-                    case "1":
-                        txt_EUR_UAH.setText(cursor.getString(3));
-                        break;
-                    case "2":
-                        txt_USD_UAH.setText(cursor.getString(3));
-                        break;
-                    case "3":
-                        txt_RUB_UAH.setText(cursor.getString(3));
-                        break;
-
-                }
-            }
-        }
-    }
 
     public void startTask() {
-        nbuTask=new NBUTask(this.getContext(), dbh, v, fm).execute(DataBaseHelper.Strings.NBU_CUR_RATE);
+        nbuTask = new NBUTask(this, this.getContext(), dbh).execute(DataBaseHelper.Strings.NBU_CUR_RATE);
     }
 
     public void createBroadcastReceiver() {
@@ -156,7 +85,7 @@ public class FragmentCurExchangeNBU extends Fragment {
                 ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 if (cm.getActiveNetworkInfo() != null) {
                     Cursor cursor = dbh.getlastCursFromNBU(DataBaseHelper.getCurrentDate());
-                    int cursorCount=cursor.getCount();
+                    int cursorCount = cursor.getCount();
                     if (cursorCount == 0) {
                         if (nbuTask != null) {
                             if (nbuTask.getStatus() != PBTask.Status.RUNNING) {
@@ -172,17 +101,14 @@ public class FragmentCurExchangeNBU extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        fillViews();
+        getData();
         createBroadcastReceiver();
-        getActivity().registerReceiver(receiver,intentFilter);
+        getActivity().registerReceiver(receiver, intentFilter);
         img_EUR_sale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentCurranciesChart chartDialog = new FragmentCurranciesChart();
-                Bundle bundle = new Bundle();
-                bundle.putString("BANK", DataBaseHelper.Strings.NBU);
-                bundle.putString("MAIN_CURRANCY", DataBaseHelper.Strings.EUR);
-                chartDialog.setArguments(bundle);
+                chartDialog.setArguments(createBundle(DataBaseHelper.Strings.NBU, DataBaseHelper.Strings.EUR));
                 chartDialog.show(getFragmentManager(), "tag");
             }
         });
@@ -190,10 +116,7 @@ public class FragmentCurExchangeNBU extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentCurranciesChart chartDialog = new FragmentCurranciesChart();
-                Bundle bundle = new Bundle();
-                bundle.putString("BANK", DataBaseHelper.Strings.NBU);
-                bundle.putString("MAIN_CURRANCY", DataBaseHelper.Strings.USD);
-                chartDialog.setArguments(bundle);
+                chartDialog.setArguments(createBundle(DataBaseHelper.Strings.NBU, DataBaseHelper.Strings.USD));
                 chartDialog.show(getFragmentManager(), "tag");
             }
         });
@@ -201,10 +124,7 @@ public class FragmentCurExchangeNBU extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentCurranciesChart chartDialog = new FragmentCurranciesChart();
-                Bundle bundle = new Bundle();
-                bundle.putString("BANK", DataBaseHelper.Strings.NBU);
-                bundle.putString("MAIN_CURRANCY", DataBaseHelper.Strings.RUR);
-                chartDialog.setArguments(bundle);
+                chartDialog.setArguments(createBundle(DataBaseHelper.Strings.NBU, DataBaseHelper.Strings.RUR));
                 chartDialog.show(getFragmentManager(), "tag");
             }
         });
@@ -214,5 +134,109 @@ public class FragmentCurExchangeNBU extends Fragment {
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(receiver);
+    }
+
+
+    public void getData() {
+        Cursor cursor = dbh.getlastCursFromNBU(DataBaseHelper.getCurrentDate());
+        if (cursor.getCount() == 0) {
+            startTask();
+        } else {
+            fillView(cursor);
+            setStatIconIntoView(null);
+        }
+
+    }
+
+    @Override
+    public void fillView(Cursor cursor) {
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+            String cur = cursor.getString(2);
+            switch (cur) {
+                case "1":
+                    txt_EUR_UAH.setText(cursor.getString(3));
+                    break;
+                case "2":
+                    txt_USD_UAH.setText(cursor.getString(3));
+                    break;
+                case "3":
+                    txt_RUB_UAH.setText(cursor.getString(3));
+                    break;
+
+            }
+        }
+    }
+
+    @Override
+    public synchronized void setData(String s, String source) throws JSONException {
+        JSONArray parentArray = new JSONArray(s);
+        for (int i = 0; i < parentArray.length(); i++) {
+            JSONObject object = parentArray.getJSONObject(i);
+            String cc = object.getString("cc");
+            String rate = object.getString("rate");
+            if (cc.equals("USD") || cc.equals("EUR"))
+                dbh.insertIntoNBU(DataBaseHelper.getCurrentDate(), cc, rate);
+            if (cc.equals("RUB"))
+                dbh.insertIntoNBU(DataBaseHelper.getCurrentDate(), "RUR", rate);
+        }
+    }
+
+    @Override
+    public void showCustomDialog(String message) {
+        CustomDialog customDialog = new CustomDialog(message);
+        customDialog.show(fm, "tag");
+    }
+
+    @Override
+    public void setStatIconIntoView(String source) {
+        setStatIconIntoView(img_EUR_sale, getDiff(DataBaseHelper.Strings.EUR));
+        setStatIconIntoView(img_USD_sale, getDiff(DataBaseHelper.Strings.USD));
+        setStatIconIntoView(img_RUR_sale, getDiff(DataBaseHelper.Strings.RUR));
+    }
+
+    private void setStatIconIntoView(View v, double diff) {
+        if (diff > 0) {
+            v.setBackgroundDrawable(triangleGreenSelector);
+        } else if (diff < 0) {
+            v.setBackgroundDrawable(triangleRedSelector);
+        } else {
+            v.setBackgroundDrawable(equallySelector);
+        }
+    }
+
+    private Bundle createBundle(String bank, String mainCurrancy) {
+        Bundle bundle = new Bundle();
+        bundle.putString("BANK", bank);
+        bundle.putString("MAIN_CURRANCY", mainCurrancy);
+        return bundle;
+    }
+
+    private int getRowcount() {
+        Cursor cursor = dbh.getRowCount(DataBaseHelper.NBUtable.NAME);
+        return cursor.getCount();
+    }
+
+
+    private double getDiff(String cur) {
+        if (getRowcount() <= 1) return 0;
+
+        String curValue = null;
+        String prevValue = null;
+        Cursor cursorCur = dbh.getValueFromNBU(DataBaseHelper.getCurrentDate(), cur);
+        while (cursorCur.moveToNext()) {
+            curValue = cursorCur.getString(0);
+        }
+        boolean go = true;
+        int i = 1;
+        while (go) {
+            Cursor cursorPrev = dbh.getValueFromNBU(DataBaseHelper.getPrevDate(i), cur);
+            while (cursorPrev.moveToNext()) {
+                prevValue = cursorPrev.getString(0);
+                go = false;
+            }
+
+        }
+        return Double.parseDouble(curValue) - Double.parseDouble(prevValue);
     }
 }

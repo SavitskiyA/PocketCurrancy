@@ -7,7 +7,7 @@
     android:background="@color/grey_light_pb"
     android:orientation="vertical"
     app:layout_collapseParallaxMultiplier="1.0"
-    tools:context="converter.com.converter.activities.FragmentCurExchangePB">
+    tools:context="converter.com.converter.activities.FragmentPB">
 
 
     <LinearLayout
