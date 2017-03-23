@@ -23,6 +23,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -151,7 +152,7 @@ public class FragmentCurranciesChart extends DialogFragment {
         graphView.addSeries(lineGraphSeriesRUR);
 
         graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graphView.getContext()));
-        graphView.getGridLabelRenderer().setNumHorizontalLabels(dbArraysEUR.size());
+        graphView.getGridLabelRenderer().setNumHorizontalLabels(5);
 
         graphView.getViewport().setMinX(dbArraysEUR.get(0).getDate().getTime());
         graphView.getViewport().setMaxX(dbArraysEUR.get(dbArraysEUR.size() - 1).getDate().getTime());
@@ -161,10 +162,13 @@ public class FragmentCurranciesChart extends DialogFragment {
         graphView.getViewport().setMaxY((dbArraysEUR.get(dbArraysEUR.size() - 1).getValue()) * 1.5);
         //
         graphView.getViewport().setXAxisBoundsManual(true);
-        graphView.getGridLabelRenderer().setHumanRounding(false);
+        graphView.getGridLabelRenderer().setHumanRounding(true);
 
         graphView.getLegendRenderer().setVisible(true);
         graphView.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+
+
+
 
         graphView.setTitle("UAH/" + mainCurrancy);
         graphView.getGridLabelRenderer().setVerticalAxisTitle("UAH");

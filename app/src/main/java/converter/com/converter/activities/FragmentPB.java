@@ -62,16 +62,42 @@ public class FragmentPB extends BaseFragment {
     public FragmentPB() {
     }
 
+    private void handInsert() {
+        dbh.insertIntoPB("20170322", "EUR", "29.4", "29.7", DataBaseHelper.Strings.BRANCH);
+        dbh.insertIntoPB("20170322", "USD", "26.0", "26.45", DataBaseHelper.Strings.BRANCH);
+        dbh.insertIntoPB("20170322", "RUR", "0.55", "0.63", DataBaseHelper.Strings.BRANCH);
+
+        dbh.insertIntoPB("20170321", "EUR", "28.0", "28.03", DataBaseHelper.Strings.BRANCH);
+        dbh.insertIntoPB("20170321", "USD", "27.0", "27.45", DataBaseHelper.Strings.BRANCH);
+        dbh.insertIntoPB("20170321", "RUR", "0.5", "0.6", DataBaseHelper.Strings.BRANCH);
+
+        dbh.insertIntoPB("20170320", "EUR", "27.1", "27.5", DataBaseHelper.Strings.BRANCH);
+        dbh.insertIntoPB("20170320", "USD", "26.06", "26.55", DataBaseHelper.Strings.BRANCH);
+        dbh.insertIntoPB("20170320", "RUR", "0.4", "0.65", DataBaseHelper.Strings.BRANCH);
+
+        dbh.insertIntoPB("20170319", "EUR", "28.87", "29.08", DataBaseHelper.Strings.BRANCH);
+        dbh.insertIntoPB("20170319", "USD", "27.56", "28.65", DataBaseHelper.Strings.BRANCH);
+        dbh.insertIntoPB("20170319", "RUR", "0.7", "0.8", DataBaseHelper.Strings.BRANCH);
+
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dbh = new DataBaseHelper(this.getActivity());
+
         fm = getFragmentManager();
         intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
         triangleGreenSelector = getContext().getResources().getDrawable(R.drawable.trianglegreenselector);
         triangleRedSelector = getContext().getResources().getDrawable(R.drawable.triangleredselector);
         equallySelector = getContext().getResources().getDrawable(R.drawable.equallyselector);
+
+        //
+       // handInsert();
+        //
+
 
     }
 
@@ -270,7 +296,8 @@ public class FragmentPB extends BaseFragment {
     }
 
     private double getDiff(String cur, String what, String type) {
-        if (getRowcount() <= 1) return 0;
+        int rowCount = getRowcount();
+        if (rowCount <= 1) return 0;
 
         String curValue = null;
         String prevValue = null;
@@ -286,15 +313,16 @@ public class FragmentPB extends BaseFragment {
                 prevValue = cursorPrev.getString(0);
                 go = false;
             }
-
+            i++;
         }
         return Double.parseDouble(curValue) - Double.parseDouble(prevValue);
     }
 
     //check amount of rows in table
     private int getRowcount() {
-        Cursor cursor = dbh.getRowCount(DataBaseHelper.PBTable.NAME);
-        return cursor.getCount();
+        Cursor cursor = dbh.getRowCount(DataBaseHelper.PBTable.NAME, curSource);
+        int cursorCount = cursor.getCount();
+        return cursorCount;
     }
 
 

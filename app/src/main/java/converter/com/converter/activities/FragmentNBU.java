@@ -56,6 +56,26 @@ public class FragmentNBU extends BaseFragment {
         triangleGreenSelector = getContext().getResources().getDrawable(R.drawable.trianglegreenselector);
         triangleRedSelector = getContext().getResources().getDrawable(R.drawable.triangleredselector);
         equallySelector = getContext().getResources().getDrawable(R.drawable.equallyselector);
+        handInsert();
+
+    }
+
+    private void handInsert() {
+        dbh.insertIntoNBU("20170322", "EUR", "26.4");
+        dbh.insertIntoNBU("20170322", "USD", "25.0");
+        dbh.insertIntoNBU("20170322", "RUR", "0.55");
+
+        dbh.insertIntoNBU("20170321", "EUR", "28.0");
+        dbh.insertIntoNBU("20170321", "USD", "27.0");
+        dbh.insertIntoNBU("20170321", "RUR", "0.5");
+
+        dbh.insertIntoNBU("20170320", "EUR", "27.1");
+        dbh.insertIntoNBU("20170320", "USD", "26.06");
+        dbh.insertIntoNBU("20170320", "RUR", "0.4");
+
+        dbh.insertIntoNBU("20170319", "EUR", "28.87");
+        dbh.insertIntoNBU("20170319", "USD", "27.56");
+        dbh.insertIntoNBU("20170319", "RUR", "0.7");
 
 
     }
@@ -213,7 +233,7 @@ public class FragmentNBU extends BaseFragment {
     }
 
     private int getRowcount() {
-        Cursor cursor = dbh.getRowCount(DataBaseHelper.NBUtable.NAME);
+        Cursor cursor = dbh.getRowCount(DataBaseHelper.NBUtable.NAME, null);
         return cursor.getCount();
     }
 

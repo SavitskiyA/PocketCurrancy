@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static android.R.attr.switchMinWidth;
 import static android.R.attr.type;
 
 /**
@@ -237,9 +238,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor getRowCount(String table){
+    public Cursor getRowCount(String table, String source){
         if(db==null)db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select count (distinct date) from "+table, null);
+        String query="";
+        switch(table){
+            case PBTable.NAME:
+                query = "select distinct date from "+table+" where type='"+source+"'";
+                break;
+            case NBUtable.NAME:
+                query = "select distinct date from "+table;
+                break;
+        }
+        Cursor res = db.rawQuery(query, null);
         return res;
     }
 
