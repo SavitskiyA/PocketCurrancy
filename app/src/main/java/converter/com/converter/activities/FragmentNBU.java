@@ -56,7 +56,7 @@ public class FragmentNBU extends BaseFragment {
         triangleGreenSelector = getContext().getResources().getDrawable(R.drawable.trianglegreenselector);
         triangleRedSelector = getContext().getResources().getDrawable(R.drawable.triangleredselector);
         equallySelector = getContext().getResources().getDrawable(R.drawable.equallyselector);
-        handInsert();
+//        handInsert();
 
     }
 
@@ -255,6 +255,7 @@ public class FragmentNBU extends BaseFragment {
                 prevValue = cursorPrev.getString(0);
                 go = false;
             }
+            i++;
 
         }
         return Double.parseDouble(curValue) - Double.parseDouble(prevValue);

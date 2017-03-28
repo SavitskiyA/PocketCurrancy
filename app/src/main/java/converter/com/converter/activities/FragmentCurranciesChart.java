@@ -75,9 +75,9 @@ public class FragmentCurranciesChart extends DialogFragment {
 
         }
         if (bank.equals(DataBaseHelper.Strings.NBU)) {
-            cursorEUR = db.getDataFromNBU(DataBaseHelper.Strings.EUR, "7");
-            cursorUSD = db.getDataFromNBU(DataBaseHelper.Strings.USD, "7");
-            cursorRUR = db.getDataFromNBU(DataBaseHelper.Strings.RUR, "7");
+            cursorEUR = db.getDataFromNBU(DataBaseHelper.Strings.EUR, "5");
+            cursorUSD = db.getDataFromNBU(DataBaseHelper.Strings.USD, "5");
+            cursorRUR = db.getDataFromNBU(DataBaseHelper.Strings.RUR, "5");
         }
         int cursorCount = cursorEUR.getCount();
 
@@ -152,7 +152,7 @@ public class FragmentCurranciesChart extends DialogFragment {
         graphView.addSeries(lineGraphSeriesRUR);
 
         graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(graphView.getContext()));
-        graphView.getGridLabelRenderer().setNumHorizontalLabels(5);
+        graphView.getGridLabelRenderer().setNumHorizontalLabels(dbArraysEUR.size());
 
         graphView.getViewport().setMinX(dbArraysEUR.get(0).getDate().getTime());
         graphView.getViewport().setMaxX(dbArraysEUR.get(dbArraysEUR.size() - 1).getDate().getTime());

@@ -104,6 +104,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("insert into catalogue values(null, 'EUR')");
         db.execSQL("insert into catalogue values(null, 'USD')");
         db.execSQL("insert into catalogue values(null, 'RUR')");
+        db.execSQL("insert into catalogue values(null, 'BTC')");
 //        insertDataIntoCatalogue();
     }
 
